@@ -239,7 +239,7 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 const getCurrentUser = asyncHandler(async (req, res) => {
   return res
     .status(200)
-    .json(200, req.user, "current user fetched successfully");
+    .json( new ApiResponse(200, req.user, "current user fetched successfully"));
 });
 
 const updateAccountDetails = asyncHandler(async (req, res) => {
@@ -259,7 +259,9 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
     },
     { new: true }
   ).select("-password");
-  return res.status(200).json(new ApiResponse(200, user, "Account details"));
+  return res
+  .status(200)
+  .json(new ApiResponse(200, user, "Account details"));
 });
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
@@ -281,6 +283,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     },
     { new: true }
   );
+  //Delete prev user avatar image
   return res
     .status(200)
     .json(new ApiResponse(200, user, "avatar image updated successfully"));
